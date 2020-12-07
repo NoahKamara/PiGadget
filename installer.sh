@@ -19,9 +19,6 @@ sudo apt-get -y install dnsmasq
 # Clean Up
 sudo apt-get clean
 
-# Enable Sudo Mode:
-sudo su
-
 # WRITE /etc/dnsmasq.d/usb0
 WRITE "/etc/dnsmasq.d/usb0"
 
