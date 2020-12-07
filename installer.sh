@@ -1,11 +1,11 @@
 #!/bin/bash
 
 PASSWORD=raspberry
-URL="https://raw.githubusercontent.com/noahkamara/PiGadget/master/install_files"
+
 sudo -S -v <<< $PASSWORD 2> /dev/null
 
 function WRITE() {
-    echo $URL
+    URL="https://raw.githubusercontent.com/noahkamara/PiGadget/master/install_files"
     sudo wget "$URL$1" "$1"
 }
 
