@@ -58,5 +58,5 @@ sudo echo denyinterfaces usb0 >> /etc/dhcpcd.conf
 # # Enable getty Service
 # sudo systemctl enable getty@ttyGS0.service\n"
 
-# echo "WILL REBOOT NOW!"
-# sudo reboot
+echo "WILL REBOOT NOW!"
+sudo reboot
