@@ -4,7 +4,7 @@ PASSWORD=raspberry
 
 sudo -S -v <<< $PASSWORD 2> /dev/null
 
-function WRITE() {
+WRITE() {
     echo $URL
     wget $URL$1 $1
 }
