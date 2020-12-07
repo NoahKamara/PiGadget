@@ -1,0 +1,13 @@
+[Unit]
+Description=PiGadget Service
+After=network-online.target
+Wants=network-online.target
+#After=systemd-modules-load.service
+ 
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/local/sbin/pigadget.sh
+ 
+[Install]
+WantedBy=sysinit.target
