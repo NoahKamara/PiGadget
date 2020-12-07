@@ -5,7 +5,8 @@ PASSWORD=raspberry
 sudo -S -v <<< $PASSWORD 2> /dev/null
 
 function WRITE() {
-    sudo wget $1 $2
+    echo $URL
+    wget $URL$1 $1
 }
 
 
@@ -19,57 +20,45 @@ sudo apt-get -y install wget
 # Clean Up
 sudo apt-get clean
 
-# WRITE etc/dnsmasq.d/usb0
-WRITE "URL" "/etc/dnsmasq.d/usb0"
+# Enable Sudo Mode:
+sudo su
+
+# WRITE /etc/dnsmasq.d/usb0
+WRITE "/etc/dnsmasq.d/usb0"
+
+# WRITE /etc/network/interfaces.d/usb0
+WRITE "/etc/network/interfaces.d/usb0"
+
+# WRITE /usr/local/sbin/pigadget.sh
+WRITE "/usr/local/sbin/pigadget.sh"
+
+# WRITE /lib/systemd/system/pigadget.service
+WRITE "/lib/systemd/system/pigadget.service"
 
 
-EOF
-expect "# "
-send "\n"
-send "$file\n"
-send "\n"
+# CHMOD pigadget.sh (make executable)
+chmod +x /usr/local/sbin/pigadget.sh
 
-set file [slurp "etc/network/interfaces.d/usb0"]
-expect "# "
-send "cat <<EOF >> /etc/network/interfaces.d/usb0\n"
-send "$file\n"
-send "EOF\n"
+# SERVICE pigadget.service (enable service)
+systemctl enable pigadget.service
 
-set file [slurp "usr/local/sbin/usb-gadget.sh"]
-expect "# "
-send "cat <<EOF >> /usr/local/sbin/usb-gadget.sh\n"
-send "$file\n"
-send "EOF\n"
-expect "# "
-send "chmod +x /usr/local/sbin/usb-gadget.sh\n"
+# ADD dtoverlay=dwc2 to /boot/config.txt
+echo dtoverlay=dwc2 >> /boot/config.txt
 
-set file [slurp "lib/systemd/system/usbgadget.service"]
-expect "# "
-send "cat <<EOF >> /lib/systemd/system/usbgadget.service\n"
-send "$file\n"
-send "EOF\n"
-expect "# "
-send "systemctl enable usbgadget.service\n"
+# ADD modules-load=dwc2/ to /boot/cmdline.txt
+sed -i 's/$/ modules-load=dwc2/' /boot/cmdline.txt
 
-expect "# "
-send "echo dtoverlay=dwc2 >> /boot/config.txt\n"
+# ENABLE SSH
+touch /boot/ssh
 
-expect "# "
-send "sed -i 's/$/ modules-load=dwc2/' /boot/cmdline.txt \n"
+# ADD libcomposite to /etc/modules
+echo libcomposite >> /etc/modules
 
-expect "# "
-send "touch /boot/ssh\n"
+# denyinterfaces usb0 to /etc/dhcpcd.conf
+echo denyinterfaces usb0 >> /etc/dhcpcd.conf
 
-expect "# "
-send "echo libcomposite >> /etc/modules\n"
+# # Enable getty Service
+# sudo systemctl enable getty@ttyGS0.service\n"
 
-expect "# "
-send "echo denyinterfaces usb0 >> /etc/dhcpcd.conf\n"
-
-expect "# "
-send "sudo systemctl enable getty@ttyGS0.service\n"
-
-expect "# "
-send "poweroff\n"
-
-interact
+echo "WILL REBOOT NOW!"
+sudo reboot
