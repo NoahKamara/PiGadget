@@ -6,7 +6,7 @@ sudo -S -v <<< $PASSWORD 2> /dev/null
 
 function WRITE() {
     echo $URL
-    wget $URL$1 $1
+    sudo wget $URL$1 $1
 }
 
 
@@ -34,25 +34,25 @@ WRITE "/lib/systemd/system/pigadget.service"
 
 
 # CHMOD pigadget.sh (make executable)
-chmod +x /usr/local/sbin/pigadget.sh
+sudo chmod +x /usr/local/sbin/pigadget.sh
 
 # SERVICE pigadget.service (enable service)
-systemctl enable pigadget.service
+sudo systemctl enable pigadget.service
 
 # ADD dtoverlay=dwc2 to /boot/config.txt
 echo dtoverlay=dwc2 >> /boot/config.txt
 
 # ADD modules-load=dwc2/ to /boot/cmdline.txt
-sed -i 's/$/ modules-load=dwc2/' /boot/cmdline.txt
+sudo sed -i 's/$/ modules-load=dwc2/' /boot/cmdline.txt
 
 # ENABLE SSH
-touch /boot/ssh
+sudo touch /boot/ssh
 
 # ADD libcomposite to /etc/modules
-echo libcomposite >> /etc/modules
+sudo echo libcomposite >> /etc/modules
 
 # denyinterfaces usb0 to /etc/dhcpcd.conf
-echo denyinterfaces usb0 >> /etc/dhcpcd.conf
+sudo echo denyinterfaces usb0 >> /etc/dhcpcd.conf
 
 # # Enable getty Service
 # sudo systemctl enable getty@ttyGS0.service\n"
