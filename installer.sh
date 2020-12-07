@@ -5,8 +5,9 @@ PASSWORD=raspberry
 sudo -S -v <<< $PASSWORD 2> /dev/null
 
 function WGETWRITE() {
-    URL="https://raw.githubusercontent.com/noahkamara/PiGadget/master/install_files"
-    sudo wget "$URL$1" "$1"
+    URL="https://raw.githubusercontent.com/noahkamara/PiGadget/master/install_files$1"
+    echo $URL
+    sudo wget "$URL" -O "$1"
 }
 
 
