@@ -6,7 +6,7 @@ sudo -S -v <<< $PASSWORD 2> /dev/null
 
 function WRITE() {
     echo $URL
-    sudo wget $URL$1 $1
+    sudo wget "$URL$1" "$1"
 }
 
 
