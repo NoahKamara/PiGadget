@@ -4,7 +4,7 @@ PASSWORD=raspberry
 
 sudo -S -v <<< $PASSWORD 2> /dev/null
 
-function WRITE() {
+function WGETWRITE() {
     URL="https://raw.githubusercontent.com/noahkamara/PiGadget/master/install_files"
     sudo wget "$URL$1" "$1"
 }
@@ -20,17 +20,17 @@ sudo apt-get -y install dnsmasq
 sudo apt-get clean
 
 # WRITE /etc/dnsmasq.d/usb0
-WRITE "/etc/dnsmasq.d/usb0"
+WGETWRITE "/etc/dnsmasq.d/usb0"
 
 # WRITE /etc/network/interfaces.d/usb0
-WRITE "/etc/network/interfaces.d/usb0"
+WGETWRITE "/etc/network/interfaces.d/usb0"
 
 # WRITE /usr/local/sbin/pigadget.sh
 mkdir /usr/local/sbin/
-WRITE "/usr/local/sbin/pigadget.sh"
+WGETWRITE "/usr/local/sbin/pigadget.sh"
 
 # WRITE /lib/systemd/system/pigadget.service
-WRITE "/lib/systemd/system/pigadget.service"
+WGETWRITE "/lib/systemd/system/pigadget.service"
 
 
 # CHMOD pigadget.sh (make executable)
