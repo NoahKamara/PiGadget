@@ -15,7 +15,6 @@ sudo apt-get update
 
 # Install dnsmasq and wget
 sudo apt-get -y install dnsmasq
-sudo apt-get -y install wget
 
 # Clean Up
 sudo apt-get clean
@@ -30,6 +29,7 @@ WRITE "/etc/dnsmasq.d/usb0"
 WRITE "/etc/network/interfaces.d/usb0"
 
 # WRITE /usr/local/sbin/pigadget.sh
+mkdir /usr/local/sbin/
 WRITE "/usr/local/sbin/pigadget.sh"
 
 # WRITE /lib/systemd/system/pigadget.service
@@ -60,5 +60,5 @@ echo denyinterfaces usb0 >> /etc/dhcpcd.conf
 # # Enable getty Service
 # sudo systemctl enable getty@ttyGS0.service\n"
 
-echo "WILL REBOOT NOW!"
-sudo reboot
+# echo "WILL REBOOT NOW!"
+# sudo reboot
