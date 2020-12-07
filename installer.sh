@@ -5,8 +5,8 @@ URL="https://raw.githubusercontent.com/noahkamara/PiGadget/master/install_files"
 sudo -S -v <<< $PASSWORD 2> /dev/null
 
 function WRITE() {
-    echo $URL;
-    wget $URL$1 $1;
+    echo $URL
+    wget $URL$1 $1
 }
 
 
