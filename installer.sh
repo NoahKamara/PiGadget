@@ -41,7 +41,7 @@ sudo chmod +x /usr/local/sbin/pigadget.sh
 sudo systemctl enable pigadget.service
 
 # ADD dtoverlay=dwc2 to /boot/config.txt
-echo dtoverlay=dwc2 >> /boot/config.txt
+echo dtoverlay=dwc2 | sudo tee -a /boot/config.txt
 
 # ADD modules-load=dwc2/ to /boot/cmdline.txt
 sudo sed -i 's/$/ modules-load=dwc2/' /boot/cmdline.txt
@@ -50,10 +50,10 @@ sudo sed -i 's/$/ modules-load=dwc2/' /boot/cmdline.txt
 sudo touch /boot/ssh
 
 # ADD libcomposite to /etc/modules
-sudo echo libcomposite >> /etc/modules
+echo libcomposite | sudo tee -a /etc/modules
 
 # denyinterfaces usb0 to /etc/dhcpcd.conf
-sudo echo denyinterfaces usb0 >> /etc/dhcpcd.conf
+echo denyinterfaces usb0 | sudo tee -a /etc/dhcpcd.conf
 
 # # Enable getty Service
 # sudo systemctl enable getty@ttyGS0.service\n"
