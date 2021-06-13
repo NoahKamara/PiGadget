@@ -7,7 +7,7 @@ Wants=network-online.target
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStart=/usr/local/sbin/pigadget.sh
+ExecStart=/root/pigadget.sh
  
 [Install]
 WantedBy=sysinit.target

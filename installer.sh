@@ -26,9 +26,8 @@ WGETWRITE "/etc/dnsmasq.d/usb0"
 # WRITE /etc/network/interfaces.d/usb0
 WGETWRITE "/etc/network/interfaces.d/usb0"
 
-# WRITE /usr/local/sbin/pigadget.sh
-mkdir /usr/local/sbin/
-WGETWRITE "/usr/local/sbin/pigadget.sh"
+# WRITE /root/pigadget.sh
+WGETWRITE "/root/pigadget.sh"
 
 # WRITE /lib/systemd/system/pigadget.service
 WGETWRITE "/lib/systemd/system/pigadget.service"
